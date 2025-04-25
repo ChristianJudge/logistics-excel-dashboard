@@ -19,27 +19,16 @@ This project demonstrates my ability to clean raw data, build automated calculat
 ## Raw Data
 ![Alt text](https://github.com/ChristianJudge/logistics-excel-dashboard/blob/main/raw_data_ss.PNG)
 
-## 🔧 Data Cleaning Steps
+## Data Cleaning Steps
 
 Performed in the "Cleaned Data" sheet:
-- Split dates into separate **Month**, **Day of Week**, and **Year-Month** fields using `TEXT()` function.
-- Created **Delivery Category** using 'IF()' formulas
-- Order Delayed Category IF() formula:
-
- -**Delivery Category** 
-  ```excel
-  =IF(G2<=24,"Fast",IF(G2<=72,"On Time","Delayed"))
-  ```
--**Month, Year-Month and Day of Week**
-  ```excel
-=TEXT(B2,"mmmm")
-=TEXT(B2,"yyyy-mm")
+- Split dates into separate **Month**, **Day of Week**, and **Year-Month** fields using `TEXT()` function:
+=TEXT(B2,"mmmm") / 
+=TEXT(B2,"yyyy-mm") / 
 =TEXT(B2,"dddd")
-  ```
- -**Delayed** 
-  ```excel
-=IF(G2>72,"Yes","No")
-  ```
+- Created **Delivery Category** using 'IF()' formula: =IF(G2<=24,"Fast",IF(G2<=72,"On Time","Delayed"))
+- Order Delayed Category IF() formula: =IF(G2>72,"Yes","No")
+
 ![Alt text](https://github.com/ChristianJudge/logistics-excel-dashboard/blob/main/cleaned_data_ss.PNG)
 
 ## Pivot Tables
@@ -58,6 +47,15 @@ Each pivot table feeds into the dashboard and connects to slicers for interactiv
 ## Interactive Dashboard
 
 The dashboard is powered by the pivot tables and provides a detailed analysis of delivery performance, using pivot charts with slicers plus a KPI section in the top right.
+
+Performed in the "Dashboard" sheet:
+- Avg Delivery Time (hrs) KPI: =AVERAGE('Cleaned Data'!G2:G1001)
+- % On-Time Deliveries KPI: =COUNTIFS('Cleaned Data'!J2:J1001,"No")/COUNTA('Cleaned Data'!J2:J1001)
+- Fastest Warehouse KPI:
+Helper cell - =XLOOKUP(AA4,'Pivot Tables'!F4:F6,'Pivot Tables'!E4:E6)
+The 'Fastest Warehouse' box - =IFS(AA6="Warehouse A","A",AA6="Warehouse B","B",AA6="Warehouse C","C")
+
+
 
 ![Alt text](https://github.com/ChristianJudge/logistics-excel-dashboard/blob/main/dash_ss.PNG)
 
